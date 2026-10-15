@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>Work Orders</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/construction/work-orders/new">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="filter-chips">
+    <ion-chip
+      *ngFor="let f of filters"
+      [color]="filter === f.value ? 'primary' : 'medium'"
+      [outline]="filter !== f.value"
+      (click)="applyFilter(f.value)">
+      {{ f.label }}
+    </ion-chip>
+  </div>
+
+  <div class="wo-list">
+    <ion-card *ngFor="let wo of filteredOrders" class="wo-card">
+      <ion-card-content>
+        <div class="wo-top">
+          <span class="wo-id">{{ wo.id }}</span>
+          <span class="wo-title">{{ wo.title }}</span>
+          <ion-badge [color]="getBadgeColor(wo.status)">
+            {{ wo.status | titlecase }}
+          </ion-badge>
+        </div>
+        <div class="wo-meta">
+          <ion-chip outline color="medium" class="meta-chip">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label>{{ wo.assignedTo }}</ion-label>
+          </ion-chip>
+          <ion-chip outline color="medium" class="meta-chip">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-label>{{ wo.dueDate }}</ion-label>
+          </ion-chip>
+          <ion-chip outline color="success" class="meta-chip">
+            <ion-icon name="cash-outline"></ion-icon>
+            <ion-label>{{ formatCost(wo.estimatedCost) }}</ion-label>
+          </ion-chip>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

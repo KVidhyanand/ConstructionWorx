@@ -1,0 +1,22 @@
+.stats-grid {
+  padding: 12px 12px 0;
+  .stat-box {
+    background: var(--ion-color-light);
+    border-radius: 10px;
+    padding: 10px 6px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 20px; font-weight: 600;
+    &.warning { color: var(--ion-color-warning); }
+    &.success { color: var(--ion-color-success); }
+  }
+  .stat-lbl { font-size: 10px; color: var(--ion-color-medium); margin-top: 2px; }
+}
+.rfi-item {
+  .rfi-top {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+    .rfi-num { font-size: 11px; font-weight: 600; color: var(--ion-color-primary); }
+  }
+  .rfi-meta { font-size: 10px; color: var(--ion-color-medium); margin-top: 4px; }
+}

@@ -1,0 +1,17 @@
+.filter-chips {
+  display: flex; gap: 6px; padding: 10px 12px 4px; overflow-x: auto;
+  ion-chip { flex-shrink: 0; }
+}
+.wo-list { padding: 0 12px; }
+.wo-card {
+  margin-bottom: 8px;
+  .wo-top {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    .wo-id    { font-size: 11px; font-weight: 600; color: var(--ion-color-primary); }
+    .wo-title { flex: 1; font-size: 14px; font-weight: 500; }
+  }
+  .wo-meta {
+    display: flex; flex-wrap: wrap; gap: 4px;
+    ion-chip { font-size: 11px; height: 24px; }
+  }
+}

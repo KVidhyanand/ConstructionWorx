@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>RFIs &amp; Submittals</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid class="stats-grid">
+    <ion-row>
+      <ion-col>
+        <div class="stat-box">
+          <div class="stat-num warning">{{ openCount }}</div>
+          <div class="stat-lbl">Open RFIs</div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="stat-box">
+          <div class="stat-num success">{{ closedCount }}</div>
+          <div class="stat-lbl">Closed</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>RFI log</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let rfi of rfis" lines="full" class="rfi-item">
+        <ion-label>
+          <div class="rfi-top">
+            <span class="rfi-num">{{ rfi.id }}</span>
+            <ion-badge [color]="getBadgeColor(rfi.status)">{{ rfi.status | titlecase }}</ion-badge>
+          </div>
+          <h3>{{ rfi.title }}</h3>
+          <p>{{ rfi.description }}</p>
+          <p class="rfi-meta">Submitted: {{ rfi.submittedDate }} · Due: {{ rfi.dueDate }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+</ion-content>

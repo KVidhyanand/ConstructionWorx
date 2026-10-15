@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Daily Log Entry</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()" [disabled]="form.invalid" strong>Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-card>
+      <ion-card-content>
+
+        <ion-item>
+          <ion-label position="stacked">Project</ion-label>
+          <ion-select formControlName="project" interface="action-sheet">
+            <ion-select-option *ngFor="let p of projects" [value]="p">{{ p }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Date</ion-label>
+          <ion-input type="date" formControlName="date"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Weather</ion-label>
+          <ion-select formControlName="weather" interface="action-sheet">
+            <ion-select-option *ngFor="let w of weatherOptions" [value]="w">{{ w }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Workers on site</ion-label>
+          <ion-input type="number" formControlName="workersOnSite" min="0"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Work performed</ion-label>
+          <ion-textarea
+            formControlName="workPerformed"
+            rows="4"
+            placeholder="Describe work completed today...">
+          </ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Issues / delays</ion-label>
+          <ion-textarea
+            formControlName="issues"
+            rows="3"
+            placeholder="Any delays, issues, or observations...">
+          </ion-textarea>
+        </ion-item>
+
+      </ion-card-content>
+    </ion-card>
+
+    <div class="btn-row">
+      <ion-button expand="block" color="primary" (click)="save()" [disabled]="form.invalid">
+        Save log entry
+      </ion-button>
+      <ion-button expand="block" fill="outline" color="medium" (click)="cancel()">
+        Cancel
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

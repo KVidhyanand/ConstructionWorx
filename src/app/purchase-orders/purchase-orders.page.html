@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>Purchase Orders</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid class="stats-grid">
+    <ion-row>
+      <ion-col>
+        <div class="stat-box">
+          <div class="stat-num primary">{{ formatK(committed) }}</div>
+          <div class="stat-lbl">Committed</div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="stat-box">
+          <div class="stat-num success">{{ formatK(received) }}</div>
+          <div class="stat-lbl">Received</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Purchase orders</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let po of orders" lines="full">
+        <ion-label>
+          <div class="po-top">
+            <span class="po-num">{{ po.id }}</span>
+            <ion-badge [color]="getBadgeColor(po.status)">{{ po.status | titlecase }}</ion-badge>
+          </div>
+          <h3>{{ po.vendor }}</h3>
+          <p>{{ po.description }}</p>
+        </ion-label>
+        <div slot="end" class="po-amount">{{ formatCurrency(po.amount) }}</div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

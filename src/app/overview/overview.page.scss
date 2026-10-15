@@ -1,0 +1,54 @@
+ion-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 4px;
+}
+
+.stats-grid {
+  padding: 12px 12px 0;
+  .stat-box {
+    background: var(--ion-color-light);
+    border-radius: 10px;
+    padding: 10px 6px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 20px;
+    font-weight: 600;
+    &.primary  { color: var(--ion-color-primary); }
+    &.warning  { color: var(--ion-color-warning); }
+    &.success  { color: var(--ion-color-success); }
+  }
+  .stat-lbl { font-size: 10px; color: var(--ion-color-medium); margin-top: 2px; }
+}
+
+.phase-row {
+  margin-bottom: 12px;
+  &:last-child { margin-bottom: 0; }
+}
+
+.phase-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 4px;
+  .phase-pct { color: var(--ion-color-medium); }
+}
+
+ion-progress-bar { border-radius: 3px; }
+
+.issue-text { color: var(--ion-color-warning); font-size: 11px; }
+
+.avatar-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ion-color-primary-tint);
+  color: var(--ion-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}

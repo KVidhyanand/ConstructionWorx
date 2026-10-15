@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Construction Mgmt</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment value="overview" scrollable>
+      <ion-segment-button value="overview" routerLink="/construction/overview">
+        <ion-label>Overview</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="schedule" routerLink="/construction/schedule">
+        <ion-label>Schedule</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="workorders" routerLink="/construction/work-orders">
+        <ion-label>Work Orders</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="rfis" routerLink="/construction/rfis">
+        <ion-label>RFIs</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="pos" routerLink="/construction/purchase-orders">
+        <ion-label>POs</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Stats row -->
+  <ion-grid class="stats-grid" *ngIf="project">
+    <ion-row>
+      <ion-col>
+        <div class="stat-box">
+          <div class="stat-num primary">{{ project.completion }}%</div>
+          <div class="stat-lbl">Complete</div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="stat-box">
+          <div class="stat-num warning">14</div>
+          <div class="stat-lbl">Open Items</div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="stat-box">
+          <div class="stat-num success">{{ formatCurrency(project.budgetRemaining) }}</div>
+          <div class="stat-lbl">Budget Left</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Phase progress -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Phase progress</ion-card-title>
+      <ion-badge color="primary">On track</ion-badge>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngFor="let phase of phases" class="phase-row">
+        <div class="phase-labels">
+          <span>{{ phase.name }}</span>
+          <span class="phase-pct">{{ phase.completion }}%</span>
+        </div>
+        <ion-progress-bar
+          [value]="phase.completion / 100"
+          [color]="getPhaseColor(phase.completion)">
+        </ion-progress-bar>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Daily log -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Daily log</ion-card-title>
+      <ion-button fill="clear" size="small" (click)="goToNewLog()">+ Add entry</ion-button>
+    </ion-card-header>
+    <ion-list lines="none">
+      <ion-item *ngFor="let log of logs">
+        <ion-icon name="ellipse" slot="start" color="primary" style="font-size:10px"></ion-icon>
+        <ion-label>
+          <h3>{{ log.workPerformed }}</h3>
+          <p>{{ log.date }} · {{ log.author }}</p>
+          <p *ngIf="log.issues" class="issue-text">⚠ {{ log.issues }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <!-- Subcontractors -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Subcontractors on site</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let sub of subcontractors">
+        <ion-avatar slot="start">
+          <div class="avatar-circle">{{ sub.initials }}</div>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ sub.name }}</h3>
+          <p *ngIf="sub.workers > 0">{{ sub.workers }} workers · {{ sub.scope }}</p>
+          <p *ngIf="sub.workers === 0">{{ sub.scope }}</p>
+        </ion-label>
+        <ion-badge slot="end" [color]="getSubBadge(sub.status)">
+          {{ sub.status | titlecase }}
+        </ion-badge>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+</ion-content>
